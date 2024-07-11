@@ -3,4 +3,4 @@
 This chat application focuses on:
 1. OOP
 2. Threads / Sockets
-3. Windwos API
+3. Windows API

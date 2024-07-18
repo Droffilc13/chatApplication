@@ -2,11 +2,17 @@
 //
 
 #include "chatApplication.h"
+#include "Logger.h"
 
 using namespace std;
 
-int main()
-{
-	cout << "Hello CMake." << endl;
+int main() {
+    std::cout << "Hello world" << std::endl;
+	Logger logger("testlog.txt");
+    
+
+    logger.logMessage("Application started");
+    logger.logMessage("This is a test log message");
+    logger.logMessage("Application ended");
 	return 0;
 }

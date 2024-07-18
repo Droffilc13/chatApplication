@@ -1,0 +1,19 @@
+#ifndef LOGGER_H
+#define LOGGER_H
+
+#include <string>
+#include <fstream>
+
+class Logger {
+public:
+    Logger(const std::string &filename);
+    ~Logger();
+
+    void logMessage(const std::string &message);
+
+private:
+    std::ofstream logfile;
+    std::string getCurrentTime() const;
+};
+
+#endif // LOGGER_H

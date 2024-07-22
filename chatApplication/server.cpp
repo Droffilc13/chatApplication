@@ -82,7 +82,6 @@ int main() {
     
     // Receiving and send message
     char recvbuf[DEFAULT_BUFLEN];
-    int iResult;
     int iSendResult;
     int recvbuflen = DEFAULT_BUFLEN;
 
@@ -95,7 +94,7 @@ int main() {
         }
 
         if (iResult > 0) {
-            serverLogger.logMessage("Bytes received");
+            serverLogger.logMessage("Bytes received: ");
 
             iSendResult = send(clientSocket, recvbuf, iResult, 0);
 
@@ -107,6 +106,10 @@ int main() {
             }
 
             serverLogger.logMessage("Bytes sent");
+            /* print out message to console */
+            // recvbuf[iResult] = '\0';
+            std::cout << "Server receives: " << recvbuf << std::endl;
+            /*                             */ 
         } else {
             serverLogger.logMessage("Recv failed");
             closesocket(clientSocket);

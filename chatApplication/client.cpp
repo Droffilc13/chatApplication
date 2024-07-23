@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    // Create concept
+    // Create socket
     struct addrinfo *result = NULL;
     struct addrinfo *ptr = NULL;
     struct addrinfo hints;
@@ -69,6 +69,15 @@ int main(int argc, char *argv[]) {
     int recvbuflen = DEFAULT_BUFLEN;
     char sendbuf[512] = "this is a test";
     char recvbuf[DEFAULT_BUFLEN];
+
+    // while (true) {
+    //     std::string message;
+    //     std::cout << "Enter your message: ";
+    //     std::getline(std::cin, message);
+        
+    //     if (message.size() == 0 || message == "$quit") break;
+    // }
+
 
 
     iResult = send(connectSocket, sendbuf, (int)strlen(sendbuf), 0);

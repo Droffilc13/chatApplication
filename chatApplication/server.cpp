@@ -61,7 +61,7 @@ int main() {
 
     freeaddrinfo(result);
 
-    // Listening on a socket
+    // Listening on a socket (Where is this)
     if (listen(listenSocket, SOMAXCONN) == SOCKET_ERROR) {
         serverLogger.logMessage("Listening to port failed");
         closesocket(listenSocket);

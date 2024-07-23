@@ -55,18 +55,29 @@ bool NetworkEntity::sendData(const std::string message) {
         WSACleanup();
         return false;
     }
-    // TODO
-    if () {
-
-    } else {
-
-    }
 
     return true;
 
 }
 
 bool NetworkEntity::receiveData(std::string &receivedData) {
-    //TODO
-    iResult = recv(connectSocket, )
+    int recvbuflen = DEFAULT_BUFLEN;
+    char recvbuf[DEFAULT_BUFLEN];
+
+    do {
+        iResult = recv(connectSocket, recvbuf, recvbuflen, 0);
+        if (iResult == 0) {
+            logger.logMessage("Connection closed");
+            continue;
+        }
+
+        if (iResult > 0) {
+            logger.logMessage("Bytes received: " + iResult);
+        } else {
+            logger.logMessage("recv failed: " + std::to_string(WSAGetLastError()));
+            return false;
+        }
+    } while (iResult > 0);
+
+    return true;
 }

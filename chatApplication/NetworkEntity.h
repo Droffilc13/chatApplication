@@ -16,7 +16,7 @@ class NetworkEntity {
 public:
     NetworkEntity(std::string logFilePath):
         logger(Logger(logFilePath)), connectSocket(INVALID_SOCKET),
-        result(NULL), ptr(NULL) {}
+        clientSocket(INVALID_SOCKET), result(NULL), ptr(NULL) {}
 
     /*
      * bool returns whether operation is successful
@@ -43,6 +43,7 @@ public:
 protected:
     Logger logger;
     SOCKET connectSocket;
+    SOCKET clientSocket;
 
     // ptr moves through the addrinfo linked list, result points at the same head
     struct addrinfo *result;

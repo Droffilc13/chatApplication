@@ -2,11 +2,7 @@
 #include "assert.h"
 
 bool ClientEntity::connectToServer() {
-    if (!createSocket(address)) {
-        return false;
-    }
-
-    std::cout << std::to_string(connectSocket) << std::endl;
+    if (!createSocket(address)) return false;
 
     int iResult = connect(connectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
     if (iResult == SOCKET_ERROR) {

@@ -39,8 +39,6 @@ bool NetworkEntity::createSocket(const std::string &address) {
         return false;
     }
 
-    std::cout << std::to_string(connectSocket) << std::endl;
-
     return true;
 }
 
@@ -77,7 +75,8 @@ bool NetworkEntity::receiveData() {
     char recvbuf[DEFAULT_BUFLEN];
 
     do {
-        iResult = recv(connectSocket, recvbuf, recvbuflen, 0);
+        iResult = recv(clientSocket, recvbuf, recvbuflen, 0);
+        std::cout << std::to_string(iResult) << std::endl;
         if (iResult == 0) {
             logger.logMessage("Connection closed");
             continue;
@@ -85,6 +84,7 @@ bool NetworkEntity::receiveData() {
 
         if (iResult > 0) {
             logger.logMessage("Bytes received: " + iResult);
+            std::cout << recvbuf << std::endl;
         } else {
             logger.logMessage("recv failed: " + std::to_string(WSAGetLastError()));
             return false;

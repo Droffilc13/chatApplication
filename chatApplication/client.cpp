@@ -5,6 +5,7 @@
 
 int main(int argc, char *argv[]) {
     Logger clientLogger("client.txt");
+    // Starting up winsock
     WSAData wsaData;
     int wsaerr;
 
@@ -18,7 +19,7 @@ int main(int argc, char *argv[]) {
 
     // Create socket
     struct addrinfo *result = NULL;
-    struct addrinfo *ptr = NULL;
+    struct addrinfo *ptr = NULL; // This is used to traverse the addrinfo linkedlist
     struct addrinfo hints;
     int iResult;
 

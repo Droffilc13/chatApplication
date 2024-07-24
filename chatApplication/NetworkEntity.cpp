@@ -1,21 +1,31 @@
 #include "NetworkEntity.h"
 
-bool NetworkEntity::createSocket() {
+
+bool NetworkEntity::initializeWinsock() {
+    WORD version = MAKEWORD(2, 2);
+    iResult = WSAStartup(version, &wsaData);
+    if (iResult != 0) {
+        logger.logMessage("WSAStartup failed: " + std::to_string(iResult));
+        return false;
+    }
+    return true;
+}
+
+
+bool NetworkEntity::createSocket(const std::string &address) {
     // Basic info 
     ZeroMemory(&hints, sizeof(hints));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
 
-    iResult = getaddrinfo("localhost", DEFAULT_PORT, &hints, &result);
+    iResult = getaddrinfo(address.c_str(), DEFAULT_PORT, &hints, &result);
 
     if (iResult != 0) {
         logger.logMessage("getaddrinfo failed: " + iResult);
         WSACleanup();
         return false;
     }
-
-    SOCKET connectSocket = INVALID_SOCKET;
 
     ptr = result;
     connectSocket = socket(ptr->ai_family,
@@ -24,10 +34,12 @@ bool NetworkEntity::createSocket() {
 
     if (connectSocket == INVALID_SOCKET) {
         logger.logMessage("Error at socket: " + std::to_string(WSAGetLastError()));
-        freeaddrinfo(result);
+        freeaddrinfo(result);   
         WSACleanup();
         return false;
     }
+
+    std::cout << std::to_string(connectSocket) << std::endl;
 
     return true;
 }
@@ -60,7 +72,7 @@ bool NetworkEntity::sendData(const std::string message) {
 
 }
 
-bool NetworkEntity::receiveData(std::string &receivedData) {
+bool NetworkEntity::receiveData() {
     int recvbuflen = DEFAULT_BUFLEN;
     char recvbuf[DEFAULT_BUFLEN];
 

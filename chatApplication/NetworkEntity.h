@@ -21,15 +21,17 @@ public:
     /*
      * bool returns whether operation is successful
      */
-    bool createSocket();
+    bool initializeWinsock();
+
+    bool createSocket(const std::string &address);
 
     bool bindSocket();
 
     bool sendData(const std::string message);
 
-    bool receiveData(std::string &receivedData);
+    bool receiveData();
 
-    void cleanup();
+    // void cleanup();
 
     //bool 
 
@@ -49,6 +51,8 @@ protected:
 
     // Stores error code of latest call to winsock2 library functions
     int iResult;
+
+    WSAData wsaData;
 };
 
 #endif //NETWORKENTITY_H
